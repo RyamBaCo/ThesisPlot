@@ -1,0 +1,15 @@
+﻿<Window x:Class="WpfApplication1.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:oxy="http://oxyplot.org/wpf"
+        xmlns:local="clr-namespace:WpfApplication1"
+        Title="Context-Sensitive Reminding: Study Results" Height="350" Width="525" WindowState="Maximized">
+    <Window.DataContext>
+        <local:MainViewModel/>
+    </Window.DataContext>
+    <Grid>
+        <oxy:PlotView x:Name="plotView" Model="{Binding Model}"/>
+        <ComboBox x:Name="comboBoxUsers" HorizontalAlignment="Left" VerticalAlignment="Top" Width="130" SelectionChanged="comboBoxUsers_SelectionChanged" Margin="54,10,0,0"/>
+        <Button x:Name="buttonPrevious" Content="&lt;" HorizontalAlignment="Left" Margin="33,10,0,0" VerticalAlignment="Top" Width="16" Height="22" IsEnabled="False" Click="buttonPrevious_Click"/>
+        <Button x:Name="buttonNext" Content="&gt;" HorizontalAlignment="Left" Margin="189,10,0,0" VerticalAlignment="Top" Width="16" Height="22" Click="buttonNext_Click"/>
+    </Grid>
+</Window>
