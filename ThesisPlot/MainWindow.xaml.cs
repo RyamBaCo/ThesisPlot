@@ -81,6 +81,7 @@ namespace WpfApplication1
         private void comboBoxUsers_SelectionChanged(object sender, System.Windows.Controls.SelectionChangedEventArgs e)
         {
             MainViewModel.InitModel(((User)comboBoxUsers.SelectedItem));
+            MainViewModel.SwitchVisibility((bool)checkBoxAmplitude.IsChecked, (bool)checkBoxDistance.IsChecked, (bool)checkBoxAccelerometer.IsChecked);
             plotView.Model = MainViewModel.Model;
             buttonPrevious.IsEnabled = comboBoxUsers.SelectedIndex != 0;
             buttonNext.IsEnabled = comboBoxUsers.SelectedIndex != comboBoxUsers.Items.Count - 1;
@@ -100,6 +101,16 @@ namespace WpfApplication1
             ++comboBoxUsers.SelectedIndex;
 
             buttonNext.IsEnabled = comboBoxUsers.SelectedIndex != comboBoxUsers.Items.Count - 1;
+        }
+
+        private void checkBoxVisibilityGraph_Checked(object sender, RoutedEventArgs e)
+        {
+            if (checkBoxAmplitude == null || checkBoxDistance == null || checkBoxAccelerometer == null || MainViewModel.Model == null)
+                return;
+
+            plotView.Model = null;
+            MainViewModel.SwitchVisibility((bool)checkBoxAmplitude.IsChecked, (bool)checkBoxDistance.IsChecked, (bool)checkBoxAccelerometer.IsChecked);
+            plotView.Model = MainViewModel.Model;
         }
     }
 }

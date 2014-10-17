@@ -38,13 +38,16 @@ namespace WpfApplication1
 
     public class MainViewModel
     {
+        static String[] gender = new String[] { "male", "female" };
+        static String[] age = new String[] { "16 to 24 years", "25 to 34 years", "35 to 44 years", "45 to 54 years", "55 to 64 years", "65 years and older" };
+        static String[] occupation = new String[] { "fully employed", "part-time employed", "self-employed", "in education", "unemployed", "prefer not to say/misc" };
         public MainViewModel()
         {
         }
 
         public static void InitModel(User user)
         {
-            Model = new PlotModel { Title = user.IMEI };
+            Model = new PlotModel { Title = gender[user.Gender] + ", " + age[user.Age] + ", " + occupation[user.Occupation] };
             Model.LegendBorder = OxyColors.Black;
             Model.LegendOrientation = LegendOrientation.Horizontal;
             Model.LegendPlacement = LegendPlacement.Outside;
@@ -291,6 +294,14 @@ namespace WpfApplication1
                     Model.Series.Add(accelerometerLine);
                 }
             }
+        }
+
+        public static void SwitchVisibility(bool showAmplitude, bool showDistance, bool showAccelerometer)
+        {
+            // alarm, charging, audio, calendar, distance, activity, call, messages, accelerometer
+            Model.Series[2].IsVisible = showAmplitude;
+            Model.Series[4].IsVisible = showDistance;
+            Model.Series[8].IsVisible = showAccelerometer;
         }
 
         public static PlotModel Model { get; private set; }

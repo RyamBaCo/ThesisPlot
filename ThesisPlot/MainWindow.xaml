@@ -11,5 +11,8 @@
         <ComboBox x:Name="comboBoxUsers" HorizontalAlignment="Left" VerticalAlignment="Top" Width="130" SelectionChanged="comboBoxUsers_SelectionChanged" Margin="54,10,0,0"/>
         <Button x:Name="buttonPrevious" Content="&lt;" HorizontalAlignment="Left" Margin="33,10,0,0" VerticalAlignment="Top" Width="16" Height="22" IsEnabled="False" Click="buttonPrevious_Click"/>
         <Button x:Name="buttonNext" Content="&gt;" HorizontalAlignment="Left" Margin="189,10,0,0" VerticalAlignment="Top" Width="16" Height="22" Click="buttonNext_Click"/>
+        <CheckBox x:Name="checkBoxAmplitude" Content="Amplitude" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="220,17,0,0" IsChecked="True" Checked="checkBoxVisibilityGraph_Checked" Unchecked="checkBoxVisibilityGraph_Checked"/>
+        <CheckBox x:Name="checkBoxDistance" Content="Distance" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="300,17,0,0" IsChecked="True" Checked="checkBoxVisibilityGraph_Checked" Unchecked="checkBoxVisibilityGraph_Checked"/>
+        <CheckBox x:Name="checkBoxAccelerometer" Content="Accelerometer" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="370,17,0,0" IsChecked="True" Checked="checkBoxVisibilityGraph_Checked" Unchecked="checkBoxVisibilityGraph_Checked"/>
     </Grid>
 </Window>
