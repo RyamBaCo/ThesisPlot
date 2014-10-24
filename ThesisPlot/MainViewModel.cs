@@ -66,7 +66,7 @@ namespace WpfApplication1
                 dateAxis.MinimumPadding = 0;
 
                 Model.Axes.Add(dateAxis);
-                LinearAxis linearAxis = new LinearAxis() { Position = AxisPosition.Left, Minimum = 0, Maximum = 4.3, AbsoluteMinimum = 0, AbsoluteMaximum = 4.3 };
+                LinearAxis linearAxis = new LinearAxis() { Position = AxisPosition.Left, Minimum = -.1, Maximum = 4.3, AbsoluteMinimum = -.1, AbsoluteMaximum = 4.3 };
                 linearAxis.MinorStep = 1;
                 linearAxis.MajorStep = 1;
                 linearAxis.MaximumPadding = 0;
@@ -76,9 +76,9 @@ namespace WpfApplication1
 
                 LineSeries alarmLine = new LineSeries();
                 alarmLine.Color = OxyColors.SkyBlue;
-                alarmLine.LineStyle = LineStyle.Dash;
+                alarmLine.LineStyle = LineStyle.None;
                 alarmLine.MarkerFill = OxyColors.SkyBlue;
-                alarmLine.MarkerSize = 5;
+                alarmLine.MarkerSize = 8;
                 alarmLine.MarkerStroke = OxyColors.White;
                 alarmLine.MarkerStrokeThickness = 1.5;
                 alarmLine.MarkerType = MarkerType.Circle;
@@ -87,7 +87,7 @@ namespace WpfApplication1
 
                 command = new MySqlCommand("select AlarmID, Time, Result, RingerMode, BatteryLevel, IsCharging from alarm where IMEI like '" + user.IMEI + "' order by Time", MainWindow.Connection);
                 using (MySqlDataReader dr = command.ExecuteReader())
-                {   
+                {
                     System.Collections.ArrayList points = new System.Collections.ArrayList();
                         
                     while (dr.Read())
@@ -98,7 +98,7 @@ namespace WpfApplication1
                             result = 0;
 
                         alarmLine.Points.Add(new DataPoint(date, result));
-
+                        
                         String explanation = "normal";
                         OxyColor annotationColor = OxyColor.FromRgb(255, 0, 0);
                         int ringerMode = Convert.ToInt32(dr[3].ToString());
@@ -112,7 +112,7 @@ namespace WpfApplication1
                             annotationColor = OxyColor.FromRgb(127, 0, 0);
                             explanation = "vibrate";
                         }
-
+                        
                         if(dr[5].ToString() == "1")
                             points.Add(new ScatterPoint(date, result));
 
@@ -138,7 +138,7 @@ namespace WpfApplication1
                 audioLine.MarkerSize = 5;
                 audioLine.MarkerType = MarkerType.Circle;
 
-                command = new MySqlCommand("select max(AverageAmplitude) from audio", MainWindow.Connection);
+                command = new MySqlCommand("select max(AverageAmplitude) from audio where IMEI like '" + user.IMEI + "'", MainWindow.Connection);
                 double maxAmplitude = Convert.ToDouble(command.ExecuteScalar().ToString());
 
                 command = new MySqlCommand("select AlarmID, AverageAmplitude from audio where IMEI like '" + user.IMEI + "' and RecordedNoises > 0 order by AlarmID", MainWindow.Connection);
@@ -279,7 +279,7 @@ namespace WpfApplication1
                 accelerometerLine.Title = "Accelerometer Distance";
                 accelerometerLine.StrokeThickness = .5;
 
-                command = new MySqlCommand("select max(AverageDistance) from accelerometer", MainWindow.Connection);
+                command = new MySqlCommand("select max(AverageDistance) from accelerometer where IMEI like '" + user.IMEI + "'", MainWindow.Connection);
                 maxDistance = Convert.ToDouble(command.ExecuteScalar().ToString());
 
                 command = new MySqlCommand("select Date, AverageDistance from accelerometer where IMEI like '" + user.IMEI + "' order by Date", MainWindow.Connection);
